@@ -287,3 +287,5 @@ Version: **Rev A**
 Date: **February 2026**
 
 Developed as part of an **IoT-based intelligent healthcare automation system**.
+# MEDI-DISPENSE-V2
+IoT-enabled sustainable smart medication dispensing and verification platform with inventory monitoring, dispensing automation, and healthcare analytics.
