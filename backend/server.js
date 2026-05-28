@@ -2,37 +2,22 @@ const express = require("express");
 const cors = require("cors");
 
 const patientRoutes = require("./routes/patient.routes");
+const medicationRoutes = require("./routes/medication.routes");
+const deviceRoutes = require("./routes/device.routes");
+const alertRoutes = require("./routes/alert.routes");
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-/* PATIENT ROUTES */
+/* ROUTES */
 app.use("/patients", patientRoutes);
+app.use("/medications", medicationRoutes);
+app.use("/devices", deviceRoutes);
+app.use("/alerts", alertRoutes);
 
-/* EXISTING DEVICES */
-const devices = [
-  { id: "DEV-7F3A", status: "online", battery: 87 },
-  { id: "DEV-9A12", status: "offline", battery: null },
-  { id: "DEV-5C8D", status: "online", battery: 22 },
-];
-
-/* EXISTING ALERTS */
-const alerts = [
-  { id: "ALR-001", type: "low_stock", message: "Metformin below ward threshold" },
-  { id: "ALR-002", type: "refill", message: "Insulin refill due this week" },
-  { id: "ALR-003", type: "critical", message: "Paracetamol slot empty — Ward 5B" },
-];
-
-app.get("/devices", (req, res) => {
-  res.json(devices);
-});
-
-app.get("/alerts", (req, res) => {
-  res.json(alerts);
-});
-
+/* ROOT */
 app.get("/", (req, res) => {
   res.json({
     ok: true,
@@ -40,7 +25,18 @@ app.get("/", (req, res) => {
       "GET /patients",
       "POST /patients",
       "DELETE /patients/:id",
+
+      "GET /medications",
+      "POST /medications",
+      "PUT /medications/:id",
+      "DELETE /medications/:id",
+
       "GET /devices",
+      "POST /devices",
+      "PATCH /devices/:id",
+      "PATCH /devices/:id/restart",
+      "DELETE /devices/:id",
+
       "GET /alerts",
     ],
   });
