@@ -35,7 +35,13 @@ const store = {
   },
 
   remove: (id) => {
-    patients = patients.filter((p) => p.id !== id);
+    const index = patients.findIndex((p) => p.id === id);
+
+    if (index === -1) return false;
+
+    patients.splice(index, 1);
+
+    return true;
   }
 };
 

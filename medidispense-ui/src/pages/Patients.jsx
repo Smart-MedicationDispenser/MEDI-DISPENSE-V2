@@ -415,55 +415,57 @@ export default function Patients() {
     setAddErrors((prev) => ({ ...prev, [field]: false }));
 
   const handleAddSubmit = async (e) => {
-    e.preventDefault();
-    const next = {};
-    if (!formData.name.trim()) next.name = true;
-    if (!formData.ward.trim()) next.ward = true;
-    if (!formData.medication.trim()) next.medication = true;
-    if (Object.keys(next).length) {
-      setAddErrors(next);
-      return;
-    }
-    setAddErrors({});
-    setAddSubmitting(true);
-    setAddError(null);
-    try {
-      const res = await fetch("http://localhost:5000/patients", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          ward: formData.ward,
-          medication: formData.medication
-        })
-      });
-      if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.error || "Failed to add patient");
-      }
-      
-      const newPatient = await res.json();
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) {
-        throw new Error(data.error || "Could not add patient.");
-      }
-      setPatients((prev) => [...prev, normalizePatient(data)]);
-      closeAddModal();
-    } catch (err) {
-      setAddError(err.message || "Could not add patient.");
-    } finally {
-      setAddSubmitting(false);
-    }
-  };
+  e.preventDefault();
 
-  const addFormValid =
-    formData.name.trim() &&
-    formData.ward.trim() &&
-    formData.medication.trim();
+  const next = {};
 
-  const handleDelete = (id)      => setPatients(prev => prev.filter(p => p.id !== id));
+  if (!formData.name.trim()) next.name = true;
+  if (!formData.ward.trim()) next.ward = true;
+  if (!formData.medication.trim()) next.medication = true;
+
+  if (Object.keys(next).length) {
+    setAddErrors(next);
+    return;
+  }
+
+  setAddErrors({});
+  setAddSubmitting(true);
+  setAddError(null);
+
+  try {
+    const res = await fetch(`${API_BASE}/patients`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: formData.name,
+        ward: formData.ward,
+        medication: formData.medication,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.error || "Could not add patient.");
+    }
+
+    // Refresh from backend (single source of truth)
+    const refreshed = await fetch(`${API_BASE}/patients`);
+    const refreshedData = await refreshed.json();
+
+    setPatients(refreshedData.map(normalizePatient));
+
+    closeAddModal();
+
+  } catch (err) {
+    setAddError(err.message || "Could not add patient.");
+  } finally {
+    setAddSubmitting(false);
+  }
+};
+
   const handleView   = (patient) => {
     setSelectedPatient(patient);
   };
@@ -471,6 +473,27 @@ export default function Patients() {
     setPatients(prev =>
       prev.map(p => p.id === editingPatient.id ? { ...p, ...updates } : p)
     );
+
+  const handleDelete = async (id) => {
+    try {
+      const res = await fetch(`${API_BASE}/patients/${id}`, {
+        method: "DELETE",
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to delete patient.");
+      }
+
+      // Refresh from backend
+      const refreshed = await fetch(`${API_BASE}/patients`);
+      const refreshedData = await refreshed.json();
+
+      setPatients(refreshedData.map(normalizePatient));
+
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <>
@@ -565,13 +588,13 @@ export default function Patients() {
               }}>Cancel</button>
               <button
                 type="submit"
-                disabled={!addFormValid || addSubmitting}
+                disabled={addSubmitting}
                 style={{
                   padding: "9px 24px", borderRadius: "var(--radius-sm)",
                   border: "none", background: "var(--cyan)",
                   fontFamily: "var(--font-body)", fontSize: 13, fontWeight: 600,
-                  color: "#fff", cursor: (!addFormValid || addSubmitting) ? "not-allowed" : "pointer",
-                  opacity: (!addFormValid || addSubmitting) ? 0.55 : 1,
+                  color: "#fff", cursor: addSubmitting ? "not-allowed" : "pointer",
+                  opacity: addSubmitting ? 0.55 : 1,
                   boxShadow: "0 2px 10px rgba(58,141,255,0.25)",
                 }}
               >
