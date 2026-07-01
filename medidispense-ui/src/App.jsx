@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /**
  * App.jsx — Sprint 4
  *
@@ -14,9 +13,6 @@
  *  - Recent Activity improved: empty state when no alerts
  */
 import { useState, useEffect, useCallback } from "react";
-=======
-import { useState, useEffect } from "react";
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
 import Sidebar from "./components/Sidebar";
 import StatCard from "./components/StatCard";
 import "./App.css";
@@ -24,7 +20,6 @@ import DispenseChart from "./components/DispenseChart";
 import DeviceHealth from "./components/DeviceHealth";
 import MedicationAlerts from "./components/MedicationAlerts";
 import WardNurse from "./components/WardNurse";
-<<<<<<< HEAD
 import { Routes, Route } from "react-router-dom";
 import { ModalShell, ModalHeader, ModalRow } from "./components/ModalShell";
 
@@ -45,20 +40,6 @@ import Toast from "./components/Toast";
 import { notifier } from "./services/NotificationService";
 
 /* ─── SVG Icons ──────────────────────────────────────────────── */
-=======
-import {  Routes, Route } from "react-router-dom"
-
-import Dashboard from "./pages/Dashboard"
-import Patients from "./pages/Patients"
-import Medications from "./pages/Medications"
-import Devices from "./pages/Devices"
-import Alerts from "./pages/Alerts"
-import { useLocation } from "react-router-dom";
-
-const API_BASE = "http://localhost:5000/api";
-
-// SVG Icons
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
 const IconPatients = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
     <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
@@ -85,7 +66,6 @@ const IconAlert = () => (
   </svg>
 );
 
-<<<<<<< HEAD
 const IconMeds = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
     <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
@@ -106,25 +86,11 @@ function SkeletonCard({ index }) {
 }
 
 /* ─── ProfileModal ───────────────────────────────────────────── */
-=======
-const IconDispense = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-    <path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4m0 0h18"/>
-    <circle cx="12" cy="12" r="2"/>
-  </svg>
-);
-
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
 function ProfileModal({ onClose }) {
   const Row = ({ label, value }) => (
     <div style={{
       display: "flex", alignItems: "flex-start",
-<<<<<<< HEAD
       padding: "12px 0", borderBottom: "1px solid var(--border-dim)", gap: 16,
-=======
-      padding: "12px 0", borderBottom: "1px solid var(--border-dim)",
-      gap: 16,
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
     }}>
       <span style={{
         fontFamily: "var(--font-mono)", fontSize: 9, fontWeight: 700,
@@ -138,7 +104,6 @@ function ProfileModal({ onClose }) {
   );
 
   return (
-<<<<<<< HEAD
     <ModalShell onClose={onClose} maxWidth={440}>
       <ModalHeader title="Profile" sub="User details · MEDI-DISPENSE" onClose={onClose} />
       <Row label="Name"   value="Dr. System Admin" />
@@ -160,74 +125,11 @@ function ProfileModal({ onClose }) {
 /* ─── App ────────────────────────────────────────────────────── */
 function App() {
   const location    = useLocation();
-=======
-    <div
-      onClick={onClose}
-      style={{
-        position: "fixed", inset: 0, zIndex: 1100,
-        background: "rgba(44,62,80,0.35)", backdropFilter: "blur(3px)",
-        display: "flex", alignItems: "center", justifyContent: "center",
-      }}
-    >
-      <div
-        onClick={(e) => e.stopPropagation()}
-        style={{
-          background: "var(--bg-surface)",
-          border: "1px solid var(--border-soft)",
-          borderRadius: "var(--radius-lg)",
-          boxShadow: "0 24px 64px rgba(44,62,80,0.18)",
-          padding: "32px 28px 28px",
-          width: "100%", maxWidth: 440,
-          display: "flex", flexDirection: "column",
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
-          <div>
-            <div style={{
-              fontFamily: "var(--font-display)", fontSize: 18, fontWeight: 800,
-              color: "var(--text-primary)", letterSpacing: "-0.02em",
-            }}>Profile</div>
-            <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, color: "var(--text-muted)", marginTop: 3 }}>
-              User details · MEDI-DISPENSE
-            </div>
-          </div>
-          <button onClick={onClose} style={{
-            background: "var(--bg-overlay)", border: "1px solid var(--border-soft)",
-            borderRadius: "var(--radius-sm)", width: 32, height: 32, cursor: "pointer",
-            color: "var(--text-muted)", display: "flex", alignItems: "center",
-            justifyContent: "center", fontSize: 14, fontWeight: 600, flexShrink: 0,
-          }}>×</button>
-        </div>
-
-        <div style={{ height: 1, background: "var(--border-dim)", marginBottom: 4 }} />
-
-        <Row label="Name" value="Dr. System Admin" />
-        <Row label="Role" value="Ward Monitor" />
-        <Row label="Status" value="Online" />
-
-        <div style={{ marginTop: 24, display: "flex", justifyContent: "flex-end" }}>
-          <button onClick={onClose} style={{
-            padding: "9px 28px", borderRadius: "var(--radius-sm)",
-            border: "none", background: "var(--cyan)",
-            fontFamily: "var(--font-body)", fontSize: 13, fontWeight: 600,
-            color: "#fff", cursor: "pointer",
-            boxShadow: "0 2px 10px rgba(58,141,255,0.25)",
-          }}>Close</button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function App() {
-  const location = useLocation();
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
   const isDashboard = location.pathname === "/";
 
   const [time, setTime] = useState("");
   const [showProfileModal, setShowProfileModal] = useState(false);
 
-<<<<<<< HEAD
   /* Live clock */
   useEffect(() => {
     const interval = setInterval(() => {
@@ -385,121 +287,10 @@ function App() {
           onDismiss={() => setToast(null)}
         />
       )}
-=======
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTime(
-        new Date().toLocaleTimeString("en-GB", {
-          hour: "2-digit",
-          minute: "2-digit"
-        })
-      );
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const [stats, setStats] = useState({
-    patients: 0,
-    devices: 0,
-    lowstockMedications: 0,
-    todayDispenses: 0,
-  });
-  const [dashboardReady, setDashboardReady] = useState(false);
-
-  useEffect(() => {
-    let cancelled = false;
-
-    async function loadDashboard() {
-      try {
-        const [patientsRes, devicesRes, alertsRes] = await Promise.all([
-          fetch(`${API_BASE}/patients`),
-          fetch(`${API_BASE}/devices`),
-          fetch(`${API_BASE}/alerts`),
-        ]);
-
-        if (cancelled) return;
-
-        const patients = await patientsRes.json();
-        const devices = await devicesRes.json();
-        const alerts = await alertsRes.json();
-
-        const patientList = Array.isArray(patients) ? patients : [];
-        const deviceList = Array.isArray(devices) ? devices : [];
-        const alertList = Array.isArray(alerts) ? alerts : [];
-
-        const onlineDevices = deviceList.filter((d) => d.status === "online").length;
-
-        setStats({
-          patients: patientList.length,
-          devices: onlineDevices,
-          lowstockMedications: alertList.length,
-          todayDispenses: 0,
-        });
-      } catch (err) {
-        console.error("Failed to fetch dashboard data:", err);
-        if (!cancelled) {
-          setStats({
-            patients: 0,
-            devices: 0,
-            lowstockMedications: 0,
-            todayDispenses: 0,
-          });
-        }
-      } finally {
-        if (!cancelled) setDashboardReady(true);
-      }
-    }
-
-    loadDashboard();
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  const cards = [
-    {
-      label: "Total Patients",
-      value: stats.patients,
-      icon: <IconPatients />,
-      accent: "#00d4ff",
-      glow: "rgba(0,212,255,0.15)",
-      tag: "REGISTERED",
-    },
-    {
-      label: "Active Devices",
-      value: stats.devices,
-      icon: <IconDevices />,
-      accent: "#00ff9d",
-      glow: "rgba(0,255,157,0.15)",
-      tag: "ONLINE",
-    },
-    {
-      label: "Low Stock Alerts",
-      value: stats.lowstockMedications,
-      icon: <IconAlert />,
-      accent: "#ff6b35",
-      glow: "rgba(255,107,53,0.15)",
-      tag: "CRITICAL",
-    },
-    {
-      label: "Today's Dispenses",
-      value: stats.todayDispenses,
-      icon: <IconDispense />,
-      accent: "#b06fff",
-      glow: "rgba(176,111,255,0.15)",
-      tag: "TODAY",
-    },
-  ];
-
-  return (
-    <div className="app-shell">
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
       {showProfileModal && (
         <ProfileModal onClose={() => setShowProfileModal(false)} />
       )}
 
-<<<<<<< HEAD
       {/* Sprint 4 — Sidebar now receives alertCount as a prop */}
       <Sidebar
         onProfileClick={() => setShowProfileModal(true)}
@@ -520,17 +311,6 @@ function App() {
         <Route path="/settings"    element={<Settings />} />
         <Route path="/reports"     element={<Reports />} />
       </Routes>
-=======
-      <Sidebar onProfileClick={() => setShowProfileModal(true)} />
-
-      <Routes>
-          <Route path="/" element={null} />
-          <Route path="/patients" element={<Patients />} />
-          <Route path="/medications" element={<Medications />} />
-          <Route path="/devices" element={<Devices />} />
-          <Route path="/alerts" element={<Alerts />} />
-        </Routes>
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
 
       {isDashboard && (
       <main className="main-content">
@@ -542,42 +322,24 @@ function App() {
             <span className="breadcrumb-sep">/</span>
             <span className="breadcrumb-active">Dashboard</span>
           </div>
-<<<<<<< HEAD
           <div className="dash-header-right">
             <div className="status-pill">
               <span className="pulse-dot" />
               {dashboardError ? "Offline" : "System Online"}
             </div>
             <div className="time-display">{time}</div>
-=======
-
-          <div className="dash-header-right">
-            <div className="status-pill">
-              <span className="pulse-dot" />
-              System Online
-            </div>
-
-            <div className="time-display">
-              {time}
-            </div>
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
           </div>
         </header>
 
         {/* Hero */}
         <section className="dash-hero">
           <div className="hero-line" />
-<<<<<<< HEAD
-=======
-
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
           <div className="hero-text">
             <h1 className="hero-title">System Overview</h1>
             <p className="hero-sub">
               Real-time telemetry · Ward monitoring · Dispense analytics
             </p>
           </div>
-<<<<<<< HEAD
           <div className="hero-badge">LIVE</div>
         </section>
 
@@ -593,20 +355,6 @@ function App() {
               <button className="dash-error-retry" onClick={loadDashboard}>
                 Retry
               </button>
-=======
-
-          <div className="hero-badge">LIVE</div>
-        </section>
-
-        {/* Stat Cards */}
-        <section className="cards-grid">
-          {!dashboardReady ? (
-            <div
-              className="stat-card"
-              style={{ gridColumn: "1 / -1", textAlign: "center", padding: "28px 20px" }}
-            >
-              <span className="chart-sub">Loading dashboard data…</span>
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
             </div>
           ) : (
             cards.map((card, i) => (
@@ -620,11 +368,7 @@ function App() {
         {/* Bottom row */}
         <div className="bottom-row">
 
-<<<<<<< HEAD
           {/* Recent Activity — Sprint 4: improved empty state */}
-=======
-          {/* Activity */}
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
           <section className="activity-strip">
             <div className="strip-header">
               <span className="strip-title">Recent Activity</span>
@@ -633,7 +377,6 @@ function App() {
             </div>
 
             <div className="activity-rows">
-<<<<<<< HEAD
               {recentAlerts.length > 0
                 ? recentAlerts.map((a, i) => {
                     const rowType =
@@ -681,33 +424,10 @@ function App() {
           </section>
 
           {/* Quick Stats — Sprint 4: real data */}
-=======
-              {[
-                { time: "08:42", msg: "Slot 3 — Metformin 500mg dispensed", type: "ok" },
-                { time: "08:30", msg: "Device DEV-7F3A — Heartbeat received", type: "info" },
-                { time: "08:15", msg: "Slot 6 — Stock below threshold (3 units)", type: "warn" },
-                { time: "08:00", msg: "Paracetamol 1000mg scheduled for Ward 3B", type: "ok" },
-                { time: "07:55", msg: "Patient Ahmad Faris — Dose confirmed ✓", type: "ok" },
-              ].map((row, i) => (
-                <div className="activity-row" key={i} style={{ "--row-i": i }}>
-                  <span className={`row-indicator row-${row.type}`} />
-                  <span className="row-time">{row.time}</span>
-                  <span className="row-msg">{row.msg}</span>
-                  <span className={`row-badge badge-${row.type}`}>
-                    {row.type === "ok" ? "OK" : row.type === "warn" ? "WARN" : "INFO"}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Quick Stats */}
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
           <div className="quick-stats">
             <div className="qs-header">System Stats</div>
 
             <div className="qs-row">
-<<<<<<< HEAD
               <span className="qs-label">Patients</span>
               <span className="qs-value">
                 {dashboardReady ? stats.patients : "—"}
@@ -726,20 +446,10 @@ function App() {
               <span className="qs-value">
                 {dashboardReady ? stats.medications : "—"}
               </span>
-=======
-              <span className="qs-label">Devices Online</span>
-              <span className="qs-value">{dashboardReady ? stats.devices : "—"}</span>
-            </div>
-
-            <div className="qs-row">
-              <span className="qs-label">Patients</span>
-              <span className="qs-value">{dashboardReady ? stats.patients : "—"}</span>
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
             </div>
 
             <div className="qs-row">
               <span className="qs-label">Low Stock</span>
-<<<<<<< HEAD
               <span className="qs-value" style={{
                 color: dashboardReady && stats.lowStockMeds > 0 ? "var(--orange)" : undefined,
               }}>
@@ -774,11 +484,6 @@ function App() {
                 {dashboardReady ? stats.dispenseJobs : "—"}
               </span>
             </div>
-=======
-              <span className="qs-value">{dashboardReady ? stats.lowstockMedications : "—"}</span>
-            </div>
-
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
           </div>
 
         </div>
@@ -789,17 +494,12 @@ function App() {
           <span className="footer-sep">·</span>
           <span>AI-Powered Medication Monitoring</span>
           <span className="footer-sep">·</span>
-<<<<<<< HEAD
           <span>© 2026</span>
-=======
-          <span>© 2025</span>
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
         </footer>
 
       </main>
       )}
 
-<<<<<<< HEAD
       {/* RIGHT PANEL — Sprint 4: live data injected */}
       {isDashboard && (
       <aside className="right-panel">
@@ -813,13 +513,6 @@ function App() {
           medications={medicationList}
           loading={!dashboardReady}
         />
-=======
-      {/* RIGHT PANEL — sibling of main-content, third grid column */}
-      {isDashboard && (
-      <aside className="right-panel">
-        <DeviceHealth />
-        <MedicationAlerts />
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
         <WardNurse />
       </aside>
       )}

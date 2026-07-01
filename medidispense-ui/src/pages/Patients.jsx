@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { useState, useEffect, useCallback } from "react";
 import { apiClient } from "../services/apiClient";
 import ActionBtn from "../components/ActionBtn";       /* S3 — shared component    */
@@ -18,20 +17,6 @@ function normalizePatient(raw) {
     medication: raw.medication ?? "",
     next:       raw.next       ?? "—",
     status:     raw.status     ?? "Active",
-=======
-import { useState, useEffect } from "react";
-
-const API_BASE = "http://localhost:5000";
-
-function normalizePatient(raw) {
-  return {
-    id: raw.id,
-    name: raw.name ?? "",
-    ward: raw.ward ?? "",
-    medication: raw.medication ?? "",
-    next: raw.next ?? "—",
-    status: raw.status ?? "Active",
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
   };
 }
 
@@ -42,11 +27,8 @@ const STATUS_MAP = {
   Missed:    { color: "var(--orange)", bg: "rgba(230,126,34,0.08)",  border: "rgba(230,126,34,0.20)"  },
 };
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
 /* ─── Feature 1: Countdown helper ─────────────────────────────── */
 function calculateTimeLeft(nextDose, now) {
   if (!nextDose || nextDose === "—") return { label: "No Schedule", color: "var(--text-muted)" };
@@ -69,74 +51,15 @@ function calculateTimeLeft(nextDose, now) {
                       return { label: `${h}h ${m}m left`,  color: "var(--text-secondary)" };
 }
 
-<<<<<<< HEAD
 /* ─── Feature 2: View Patient Modal ─────────────────────────────
    S5 — uses ModalShell + ModalHeader + ModalRow (shared components)
    S6 — Escape key handled automatically by ModalShell              */
-=======
-/* ─── Action button ────────────────────────────────────────────── */
-function ActionBtn({ label, variant, onClick }) {
-  const styles = {
-    view:   { color: "var(--cyan)",  bg: "rgba(58,141,255,0.08)", border: "rgba(58,141,255,0.20)" },
-    edit:   { color: "var(--teal)",  bg: "rgba(74,163,162,0.08)", border: "rgba(74,163,162,0.20)" },
-    delete: { color: "#E74C3C",      bg: "rgba(231,76,60,0.07)",  border: "rgba(231,76,60,0.18)"  },
-  };
-  const s = styles[variant];
-  return (
-    <button
-      className="page-action-btn"
-      style={{ color: s.color, background: s.bg, border: `1px solid ${s.border}` }}
-      onClick={onClick}
-    >
-      {label}
-    </button>
-  );
-}
-
-/* ─── FormField — module-level to keep identity stable ────────── */
-function FormField({ label, value, onChange, placeholder, error, type = "text" }) {
-  return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-      <label style={{
-        fontFamily: "var(--font-mono)", fontSize: 9, fontWeight: 700,
-        letterSpacing: "0.14em", color: "var(--text-muted)", textTransform: "uppercase",
-      }}>
-        {label}{error && <span style={{ color: "#E74C3C", marginLeft: 4 }}>*</span>}
-      </label>
-      <input
-        type={type}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-        style={{
-          padding: "9px 12px",
-          borderRadius: "var(--radius-sm)",
-          border: `1px solid ${error ? "#E74C3C" : "var(--border-soft)"}`,
-          background: "var(--bg-void)",
-          fontFamily: "var(--font-body)",
-          fontSize: 13,
-          color: "var(--text-primary)",
-          outline: "none",
-          transition: "border-color 0.16s ease",
-          width: "100%",
-          boxSizing: "border-box",
-        }}
-        onFocus={e => { e.target.style.borderColor = "var(--cyan)"; }}
-        onBlur={e  => { e.target.style.borderColor = error ? "#E74C3C" : "var(--border-soft)"; }}
-      />
-    </div>
-  );
-}
-
-/* ─── Feature 2: View Patient Modal ───────────────────────────── */
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
 function ViewPatientModal({ patient, now, onClose }) {
   if (!patient) return null;
 
   const s = STATUS_MAP[patient.status] || STATUS_MAP.Scheduled;
   const { label: timeLabel, color: timeColor } = calculateTimeLeft(patient.next, now);
 
-<<<<<<< HEAD
   return (
     <ModalShell onClose={onClose} maxWidth={440}>
       <ModalHeader title="Patient Details" sub="Read-only record · MEDI-DISPENSE" onClose={onClose} />
@@ -185,120 +108,14 @@ function ViewPatientModal({ patient, now, onClose }) {
    Shows saving state + server-side error inside the modal.
    S4 — shared FormField
    S5/S6 — ModalShell (backdrop + Escape key)                     */
-=======
-  const Row = ({ label, children }) => (
-    <div style={{
-      display: "flex", alignItems: "flex-start",
-      padding: "12px 0", borderBottom: "1px solid var(--border-dim)",
-      gap: 16,
-    }}>
-      <span style={{
-        fontFamily: "var(--font-mono)", fontSize: 9, fontWeight: 700,
-        letterSpacing: "0.14em", color: "var(--text-muted)", textTransform: "uppercase",
-        minWidth: 110, paddingTop: 2, flexShrink: 0,
-      }}>{label}</span>
-      <span style={{ fontFamily: "var(--font-body)", fontSize: 13, color: "var(--text-primary)", flex: 1 }}>
-        {children}
-      </span>
-    </div>
-  );
-
-  return (
-    <div
-      onClick={onClose}
-      style={{
-        position: "fixed", inset: 0, zIndex: 1100,
-        background: "rgba(44,62,80,0.35)", backdropFilter: "blur(3px)",
-        display: "flex", alignItems: "center", justifyContent: "center",
-      }}
-    >
-      <div
-        onClick={e => e.stopPropagation()}
-        style={{
-          background: "var(--bg-surface)",
-          border: "1px solid var(--border-soft)",
-          borderRadius: "var(--radius-lg)",
-          boxShadow: "0 24px 64px rgba(44,62,80,0.18)",
-          padding: "32px 28px 28px",
-          width: "100%", maxWidth: 440,
-          display: "flex", flexDirection: "column", gap: 0,
-        }}
-      >
-        {/* Modal header */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
-          <div>
-            <div style={{
-              fontFamily: "var(--font-display)", fontSize: 18, fontWeight: 800,
-              color: "var(--text-primary)", letterSpacing: "-0.02em",
-            }}>Patient Details</div>
-            <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, color: "var(--text-muted)", marginTop: 3 }}>
-              Read-only record · MEDI-DISPENSE
-            </div>
-          </div>
-          <button onClick={onClose} style={{
-            background: "var(--bg-overlay)", border: "1px solid var(--border-soft)",
-            borderRadius: "var(--radius-sm)", width: 32, height: 32, cursor: "pointer",
-            color: "var(--text-muted)", display: "flex", alignItems: "center",
-            justifyContent: "center", fontSize: 14, fontWeight: 600, flexShrink: 0,
-          }}>✕</button>
-        </div>
-
-        <div style={{ height: 1, background: "var(--border-dim)", marginBottom: 4 }} />
-
-        {/* Detail rows */}
-        <Row label="Patient ID">
-          <span style={{ fontFamily: "var(--font-mono)", color: "var(--cyan)", fontSize: 12 }}>
-            {patient.id}
-          </span>
-        </Row>
-        <Row label="Name">{patient.name}</Row>
-        <Row label="Ward">
-          <span className="page-ward-chip">{patient.ward}</span>
-        </Row>
-        <Row label="Medication">
-          <span style={{ fontFamily: "var(--font-mono)", fontSize: 12 }}>{patient.medication}</span>
-        </Row>
-        <Row label="Next Dose">
-          <span style={{ fontFamily: "var(--font-mono)", fontSize: 12, color: timeColor }}>
-            {patient.next !== "—" ? `${patient.next}  ·  ${timeLabel}` : timeLabel}
-          </span>
-        </Row>
-        <Row label="Status">
-          <span className="page-status-chip" style={{
-            color: s.color, background: s.bg, border: `1px solid ${s.border}`,
-          }}>
-            {patient.status}
-          </span>
-        </Row>
-
-        {/* Close button */}
-        <div style={{ marginTop: 24, display: "flex", justifyContent: "flex-end" }}>
-          <button onClick={onClose} style={{
-            padding: "9px 28px", borderRadius: "var(--radius-sm)",
-            border: "none", background: "var(--cyan)",
-            fontFamily: "var(--font-body)", fontSize: 13, fontWeight: 600,
-            color: "#fff", cursor: "pointer",
-            boxShadow: "0 2px 10px rgba(58,141,255,0.25)",
-          }}>Close</button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ─── Edit Patient Modal ───────────────────────────────────────── */
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
 function EditPatientModal({ patient, onClose, onSave }) {
   const [editName,       setEditName]       = useState(patient.name);
   const [editWard,       setEditWard]       = useState(patient.ward);
   const [editMedication, setEditMedication] = useState(patient.medication);
   const [editNext,       setEditNext]       = useState(patient.next === "—" ? "" : patient.next);
   const [errors,         setErrors]         = useState({});
-<<<<<<< HEAD
   const [saving,         setSaving]         = useState(false);
   const [saveError,      setSaveError]      = useState(null);
-=======
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
 
   const clearError = (field) => setErrors(prev => ({ ...prev, [field]: false }));
 
@@ -307,7 +124,6 @@ function EditPatientModal({ patient, onClose, onSave }) {
     if (!editName.trim())       e.name       = true;
     if (!editWard.trim())       e.ward       = true;
     if (!editMedication.trim()) e.medication = true;
-<<<<<<< HEAD
     /* next dose format check */
     const next = editNext.trim();
     if (next && next !== "—" && !/^\d{1,2}:\d{2}$/.test(next)) {
@@ -324,21 +140,11 @@ function EditPatientModal({ patient, onClose, onSave }) {
     setSaveError(null);
 
     const result = await onSave({
-=======
-    return e;
-  };
-
-  const handleSave = () => {
-    const e = validate();
-    if (Object.keys(e).length) { setErrors(e); return; }
-    onSave({
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
       name:       editName.trim(),
       ward:       editWard.trim(),
       medication: editMedication.trim(),
       next:       editNext.trim() || "—",
     });
-<<<<<<< HEAD
 
     setSaving(false);
 
@@ -438,105 +244,6 @@ function EditPatientModal({ patient, onClose, onSave }) {
         </button>
       </div>
     </ModalShell>
-=======
-    onClose();
-  };
-
-  return (
-    <div
-      onClick={onClose}
-      style={{
-        position: "fixed", inset: 0, zIndex: 1100,
-        background: "rgba(44,62,80,0.35)", backdropFilter: "blur(3px)",
-        display: "flex", alignItems: "center", justifyContent: "center",
-      }}
-    >
-      <div
-        onClick={e => e.stopPropagation()}
-        style={{
-          background: "var(--bg-surface)",
-          border: "1px solid var(--border-soft)",
-          borderRadius: "var(--radius-lg)",
-          boxShadow: "0 24px 64px rgba(44,62,80,0.18)",
-          padding: "32px 28px 28px",
-          width: "100%", maxWidth: 480,
-          display: "flex", flexDirection: "column", gap: 20,
-        }}
-      >
-        {/* Header */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <div>
-            <div style={{
-              fontFamily: "var(--font-display)", fontSize: 18, fontWeight: 800,
-              color: "var(--text-primary)", letterSpacing: "-0.02em",
-            }}>Edit Patient</div>
-            <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, color: "var(--text-muted)", marginTop: 3 }}>
-              {patient.id} · MEDI-DISPENSE
-            </div>
-          </div>
-          <button onClick={onClose} style={{
-            background: "var(--bg-overlay)", border: "1px solid var(--border-soft)",
-            borderRadius: "var(--radius-sm)", width: 32, height: 32, cursor: "pointer",
-            color: "var(--text-muted)", display: "flex", alignItems: "center",
-            justifyContent: "center", fontSize: 14, fontWeight: 600, flexShrink: 0,
-          }}>✕</button>
-        </div>
-
-        <div style={{ height: 1, background: "var(--border-dim)" }} />
-
-        {/* Fields */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-          <FormField
-            label="Full Name"
-            value={editName}
-            onChange={e => { setEditName(e.target.value); clearError("name"); }}
-            placeholder="e.g. Ahmad Faris"
-            error={errors.name}
-          />
-          <FormField
-            label="Ward"
-            value={editWard}
-            onChange={e => { setEditWard(e.target.value); clearError("ward"); }}
-            placeholder="e.g. 3B"
-            error={errors.ward}
-          />
-          <FormField
-            label="Medication"
-            value={editMedication}
-            onChange={e => { setEditMedication(e.target.value); clearError("medication"); }}
-            placeholder="e.g. Metformin 500mg"
-            error={errors.medication}
-          />
-          <FormField
-            label="Next Dose"
-            value={editNext}
-            onChange={e => setEditNext(e.target.value)}
-            placeholder="e.g. 09:00 (optional)"
-            error={false}
-          />
-        </div>
-
-        <div style={{ height: 1, background: "var(--border-dim)" }} />
-
-        {/* Actions */}
-        <div style={{ display: "flex", gap: 10, justifyContent: "flex-end" }}>
-          <button onClick={onClose} style={{
-            padding: "9px 20px", borderRadius: "var(--radius-sm)",
-            border: "1px solid var(--border-soft)", background: "var(--bg-overlay)",
-            fontFamily: "var(--font-body)", fontSize: 13, fontWeight: 500,
-            color: "var(--text-secondary)", cursor: "pointer",
-          }}>Cancel</button>
-          <button onClick={handleSave} style={{
-            padding: "9px 24px", borderRadius: "var(--radius-sm)",
-            border: "none", background: "var(--teal)",
-            fontFamily: "var(--font-body)", fontSize: 13, fontWeight: 600,
-            color: "#fff", cursor: "pointer",
-            boxShadow: "0 2px 10px rgba(74,163,162,0.25)",
-          }}>Save Changes</button>
-        </div>
-      </div>
-    </div>
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
   );
 }
 
@@ -545,25 +252,15 @@ export default function Patients() {
   const [patients,         setPatients]         = useState([]);
   const [loading,          setLoading]          = useState(true);
   const [fetchError,       setFetchError]       = useState(null);
-<<<<<<< HEAD
   const [showModal,        setShowModal]        = useState(false);
   const [formData,         setFormData]         = useState({
     name: "", ward: "", medication: "",
-=======
-  const [search,           setSearch]           = useState("");
-  const [showModal,        setShowModal]        = useState(false);
-  const [formData,         setFormData]         = useState({
-    name: "",
-    ward: "",
-    medication: "",
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
   });
   const [addErrors,        setAddErrors]        = useState({});
   const [addSubmitting,    setAddSubmitting]    = useState(false);
   const [addError,         setAddError]         = useState(null);
   const [selectedPatient,  setSelectedPatient]  = useState(null);
   const [editingPatient,   setEditingPatient]   = useState(null);
-<<<<<<< HEAD
   const [now,              setNow]              = useState(new Date());
 
   /* Sprint 3 — confirmation pending: { patient } | null */
@@ -586,53 +283,16 @@ export default function Patients() {
   }, []);
 
   useEffect(() => { loadPatients(); }, [loadPatients]);
-=======
-  const [now, setNow] = useState(new Date());
-
-  useEffect(() => {
-    let cancelled = false;
-
-    async function loadPatients() {
-      setLoading(true);
-      setFetchError(null);
-      try {
-        const res = await fetch(`${API_BASE}/patients`);
-        if (!res.ok) throw new Error("Could not load patients.");
-        const data = await res.json();
-        if (cancelled) return;
-        const list = Array.isArray(data) ? data : [];
-        setPatients(list.map(normalizePatient));
-      } catch (e) {
-        if (!cancelled) {
-          setFetchError(e.message || "Could not load patients.");
-          setPatients([]);
-        }
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
-    }
-
-    loadPatients();
-    return () => {
-      cancelled = true;
-    };
-  }, []);
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
 
   useEffect(() => {
     const timer = setInterval(() => setNow(new Date()), 60000);
     return () => clearInterval(timer);
   }, []);
 
-<<<<<<< HEAD
-=======
-  /* Derived counts */
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
   const active    = patients.filter(p => p.status === "Active").length;
   const scheduled = patients.filter(p => p.status === "Scheduled").length;
   const missed    = patients.filter(p => p.status === "Missed").length;
 
-<<<<<<< HEAD
   const {
     search, setSearch,
     activeFilter, setFilter,
@@ -646,17 +306,6 @@ export default function Patients() {
   });
 
   /* ── Add patient ────────────────────────────────────────────── */
-=======
-  const q = search.toLowerCase();
-  /* Search filter */
-  const filtered = patients.filter(p =>
-    (p.name || "").toLowerCase().includes(q)       ||
-    String(p.id || "").toLowerCase().includes(q)   ||
-    (p.ward || "").toLowerCase().includes(q)      ||
-    (p.medication || "").toLowerCase().includes(q)
-  );
-
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
   const openAddModal = () => {
     setFormData({ name: "", ward: "", medication: "" });
     setAddErrors({});
@@ -675,7 +324,6 @@ export default function Patients() {
     setAddErrors((prev) => ({ ...prev, [field]: false }));
 
   const handleAddSubmit = async (e) => {
-<<<<<<< HEAD
     e.preventDefault();
 
     const next = {};
@@ -757,113 +405,6 @@ export default function Patients() {
       {showModal && (
         <ModalShell onClose={closeAddModal} maxWidth={480} gap={20}>
           <form onSubmit={handleAddSubmit} style={{ display: "contents" }}>
-=======
-  e.preventDefault();
-
-  const next = {};
-
-  if (!formData.name.trim()) next.name = true;
-  if (!formData.ward.trim()) next.ward = true;
-  if (!formData.medication.trim()) next.medication = true;
-
-  if (Object.keys(next).length) {
-    setAddErrors(next);
-    return;
-  }
-
-  setAddErrors({});
-  setAddSubmitting(true);
-  setAddError(null);
-
-  try {
-    const res = await fetch(`${API_BASE}/patients`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: formData.name,
-        ward: formData.ward,
-        medication: formData.medication,
-      }),
-    });
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      throw new Error(data.error || "Could not add patient.");
-    }
-
-    // Refresh from backend (single source of truth)
-    const refreshed = await fetch(`${API_BASE}/patients`);
-    const refreshedData = await refreshed.json();
-
-    setPatients(refreshedData.map(normalizePatient));
-
-    closeAddModal();
-
-  } catch (err) {
-    setAddError(err.message || "Could not add patient.");
-  } finally {
-    setAddSubmitting(false);
-  }
-};
-
-  const handleView   = (patient) => {
-    setSelectedPatient(patient);
-  };
-  const handleEdit   = (updates) =>
-    setPatients(prev =>
-      prev.map(p => p.id === editingPatient.id ? { ...p, ...updates } : p)
-    );
-
-  const handleDelete = async (id) => {
-    try {
-      const res = await fetch(`${API_BASE}/patients/${id}`, {
-        method: "DELETE",
-      });
-
-      if (!res.ok) {
-        throw new Error("Failed to delete patient.");
-      }
-
-      // Refresh from backend
-      const refreshed = await fetch(`${API_BASE}/patients`);
-      const refreshedData = await refreshed.json();
-
-      setPatients(refreshedData.map(normalizePatient));
-
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  return (
-    <>
-      {/* Add Patient modal */}
-      {showModal && (
-        <div
-          onClick={closeAddModal}
-          style={{
-            position: "fixed", inset: 0, zIndex: 1000,
-            background: "rgba(44,62,80,0.35)", backdropFilter: "blur(3px)",
-            display: "flex", alignItems: "center", justifyContent: "center",
-          }}
-        >
-          <form
-            onSubmit={handleAddSubmit}
-            onClick={(e) => e.stopPropagation()}
-            style={{
-              background: "var(--bg-surface)",
-              border: "1px solid var(--border-soft)",
-              borderRadius: "var(--radius-lg)",
-              boxShadow: "0 24px 64px rgba(44,62,80,0.18)",
-              padding: "32px 28px 28px",
-              width: "100%", maxWidth: 480,
-              display: "flex", flexDirection: "column", gap: 20,
-            }}
-          >
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <div>
                 <div style={{
@@ -888,10 +429,7 @@ export default function Patients() {
               <p style={{ margin: 0, fontSize: 13, color: "#E74C3C" }}>{addError}</p>
             )}
 
-<<<<<<< HEAD
             {/* Fields — S4: shared FormField */}
-=======
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
             <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
               <FormField
                 label="Full Name"
@@ -950,11 +488,7 @@ export default function Patients() {
               </button>
             </div>
           </form>
-<<<<<<< HEAD
         </ModalShell>
-=======
-        </div>
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
       )}
 
       {/* Feature 2: View Patient modal */}
@@ -966,11 +500,7 @@ export default function Patients() {
         />
       )}
 
-<<<<<<< HEAD
       {/* Edit Patient modal — Sprint 3: onSave calls PUT /patients/:id */}
-=======
-      {/* Edit Patient modal */}
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
       {editingPatient && (
         <EditPatientModal
           patient={editingPatient}
@@ -1031,7 +561,6 @@ export default function Patients() {
           </div>
         </div>
 
-<<<<<<< HEAD
         {/* ── Filters & Search ──────────────────────────────────── */}
         <div style={{ marginBottom: 16 }}>
           <FilterPills
@@ -1042,9 +571,6 @@ export default function Patients() {
           />
         </div>
 
-=======
-        {/* ── Search ────────────────────────────────────────────── */}
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
         <div className="page-search-bar">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" width="16" height="16">
             <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
@@ -1066,42 +592,26 @@ export default function Patients() {
           <table className="page-table">
             <thead>
               <tr>
-<<<<<<< HEAD
                 <SortableHeader field="id" label="Patient ID" sort={sort} onSort={toggleSort} />
                 <SortableHeader field="name" label="Name" sort={sort} onSort={toggleSort} />
                 <SortableHeader field="ward" label="Ward" sort={sort} onSort={toggleSort} />
                 <SortableHeader field="medication" label="Medication" sort={sort} onSort={toggleSort} />
                 <SortableHeader field="next" label="Next Dose" sort={sort} onSort={toggleSort} />
                 <SortableHeader field="status" label="Status" sort={sort} onSort={toggleSort} />
-=======
-                <th>Patient ID</th>
-                <th>Name</th>
-                <th>Ward</th>
-                <th>Medication</th>
-                <th>Next Dose</th>
-                <th>Status</th>
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               {loading ? (
-<<<<<<< HEAD
                 /* S10 — CSS spinner instead of plain loading text */
                 <tr>
                   <td colSpan="7" className="page-table-loading">
                     <span className="spinner" />{" "}Loading patients…
-=======
-                <tr>
-                  <td colSpan="7" className="page-table-empty">
-                    Loading patients...
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
                   </td>
                 </tr>
               ) : fetchError ? (
                 <tr>
                   <td colSpan="7" className="page-table-empty">
-<<<<<<< HEAD
                     {fetchError}{" "}
                     <button
                       onClick={loadPatients}
@@ -1111,9 +621,6 @@ export default function Patients() {
                         textDecoration: "underline", padding: 0,
                       }}
                     >Retry</button>
-=======
-                    {fetchError}
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
                   </td>
                 </tr>
               ) : (
@@ -1156,19 +663,12 @@ export default function Patients() {
                           </span>
                         </td>
                         <td>
-<<<<<<< HEAD
                           {/* S3 — shared ActionBtn */}
                           <div className="page-action-group">
                             <ActionBtn label="View"   variant="view"   onClick={() => handleView(p)} aria-label={`View patient ${p.name}`} />
                             <ActionBtn label="Edit"   variant="edit"   onClick={() => setEditingPatient(p)} aria-label={`Edit patient ${p.name}`} />
                             {/* Sprint 3 — Delete now shows ConfirmDialog */}
                             <ActionBtn label="Delete" variant="delete" onClick={() => askDelete(p)} aria-label={`Delete patient ${p.name}`} />
-=======
-                          <div className="page-action-group">
-                            <ActionBtn label="View"   variant="view"   onClick={() => handleView(p)} />
-                            <ActionBtn label="Edit"   variant="edit"   onClick={() => setEditingPatient(p)} />
-                            <ActionBtn label="Delete" variant="delete" onClick={() => handleDelete(p.id)} />
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
                           </div>
                         </td>
                       </tr>
@@ -1180,21 +680,13 @@ export default function Patients() {
           </table>
         </div>
 
-<<<<<<< HEAD
         {/* ── Footer — S7: year updated to 2026 ─────────────────── */}
-=======
-        {/* ── Footer ────────────────────────────────────────────── */}
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
         <footer className="dash-footer">
           <span>MEDI-DISPENSE v1.1</span>
           <span className="footer-sep">·</span>
           <span>AI-Powered Medication Monitoring</span>
           <span className="footer-sep">·</span>
-<<<<<<< HEAD
           <span>© 2026</span>
-=======
-          <span>© 2025</span>
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
         </footer>
 
       </main>

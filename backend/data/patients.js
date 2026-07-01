@@ -29,17 +29,13 @@ let patients = [
 const store = {
   getAll: () => patients,
 
-<<<<<<< HEAD
   getById: (id) => patients.find((p) => p.id === id) || null,
 
-=======
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
   add: (patient) => {
     patients.push(patient);
     return patient;
   },
 
-<<<<<<< HEAD
   // Sprint 3 — update an existing patient by id.
   // Only merges safe fields; id is never overwritten.
   update: (id, fields) => {
@@ -62,17 +58,6 @@ const store = {
     patients.splice(index, 1);
     return true;
   },
-=======
-  remove: (id) => {
-    const index = patients.findIndex((p) => p.id === id);
-
-    if (index === -1) return false;
-
-    patients.splice(index, 1);
-
-    return true;
-  }
->>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
 };
 
 module.exports = store;
