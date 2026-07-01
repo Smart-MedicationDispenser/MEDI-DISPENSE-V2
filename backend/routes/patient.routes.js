@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // const express = require("express");
 // const router = express.Router();
 // let patients = require("../data/patients");
@@ -45,4 +46,49 @@ router.put('/:id', validateRequest('patient'), updatePatient);
 // DELETE patient
 router.delete('/:id', deletePatient);
 
-module.exports = router;
+module.exports = router;
+=======
+// const express = require("express");
+// const router = express.Router();
+// let patients = require("../data/patients");
+
+// // GET all patients
+// router.get("/", (req, res) => {
+//   res.json(patients);
+// });
+
+// // ADD patient
+// router.post("/", (req, res) => {
+//   const newPatient = req.body;
+//   patients.push(newPatient);
+//   res.json({ message: "Patient added", data: newPatient });
+// });
+
+// // DELETE patient
+// router.delete("/:id", (req, res) => {
+//   const { id } = req.params;
+//   patients = patients.filter(p => p.id !== id);
+//   res.json({ message: "Patient deleted" });
+// });
+
+// module.exports = router;
+
+const express = require('express');
+const router = express.Router();
+const {
+  getPatients,
+  addPatient,
+  deletePatient
+} = require('../controllers/patient.controller');
+
+// GET all patients
+router.get('/', getPatients);
+
+// ADD patient
+router.post('/', addPatient);
+
+// DELETE patient
+router.delete('/:id', deletePatient);
+
+module.exports = router;
+>>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /**
  * DeviceHealth — Sprint 4
  *
@@ -17,6 +18,9 @@ export default function DeviceHealth({ online = 0, offline = 0, low = 0, loading
     { label: "Battery Low",     value: low,     dot: "warning" },
   ];
 
+=======
+export default function DeviceHealth() {
+>>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
   return (
     <div className="device-health-card">
       <div className="card-header">
@@ -24,6 +28,7 @@ export default function DeviceHealth({ online = 0, offline = 0, low = 0, loading
         <span className="card-header-badge">LIVE</span>
       </div>
 
+<<<<<<< HEAD
       {rows.map(({ label, value, dot }) => (
         <div className="device-row" key={label}>
           <span className={`device-status-dot ${dot}`} aria-hidden="true" />
@@ -33,6 +38,25 @@ export default function DeviceHealth({ online = 0, offline = 0, low = 0, loading
           </span>
         </div>
       ))}
+=======
+      <div className="device-row">
+        <span className="device-status-dot online" aria-hidden="true" />
+        <span className="device-name">Online Devices</span>
+        <span className="device-uptime">5</span>
+      </div>
+
+      <div className="device-row">
+        <span className="device-status-dot offline" aria-hidden="true" />
+        <span className="device-name">Offline Devices</span>
+        <span className="device-uptime">1</span>
+      </div>
+
+      <div className="device-row">
+        <span className="device-status-dot warning" aria-hidden="true" />
+        <span className="device-name">Battery Low</span>
+        <span className="device-uptime">1</span>
+      </div>
+>>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
     </div>
   );
 }

@@ -1,9 +1,14 @@
 import { useState, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
+<<<<<<< HEAD
 /* Sprint 4 — alertCount is now passed as a prop from App.jsx.
    API_BASE import removed: Sidebar no longer self-fetches.     */
 
 const NAV_ITEMS_BASE = [
+=======
+
+const navItems = [
+>>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
   {
     to: "/",
     end: true,
@@ -51,11 +56,18 @@ const NAV_ITEMS_BASE = [
       </svg>
     ),
   },
+<<<<<<< HEAD
   /* Alerts badge is injected dynamically — see Sidebar component */
   {
     to: "/alerts",
     label: "Alerts",
     _isAlerts: true,
+=======
+  {
+    to: "/alerts",
+    label: "Alerts",
+    badge: 3,
+>>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
         <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
@@ -63,6 +75,7 @@ const NAV_ITEMS_BASE = [
       </svg>
     ),
   },
+<<<<<<< HEAD
   {
     to: "/prescriptions",
     label: "Prescriptions",
@@ -152,6 +165,14 @@ export default function Sidebar({ onProfileClick, alertCount = null }) {
       : item
   );
 
+=======
+];
+
+export default function Sidebar({ onProfileClick }) {
+  const [open, setOpen] = useState(false);
+  const location = useLocation();
+
+>>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
   /* Close drawer whenever the route changes */
   useEffect(() => {
     setOpen(false);

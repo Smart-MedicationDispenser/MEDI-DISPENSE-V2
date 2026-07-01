@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /**
  * MEDI-DISPENSE — centralized API configuration
  *
@@ -12,3 +13,6 @@
  *   etc.
  */
 export const API_BASE = "http://localhost:5000";
+=======
+export {};
+>>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04

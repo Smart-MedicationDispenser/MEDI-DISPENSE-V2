@@ -964,6 +964,7 @@ body::after {
 .footer-sep { color: var(--text-micro); opacity: 0.45; }
 
 /* ══════════════════════════════════════════════════════════════
+<<<<<<< HEAD
    S10 — CSS LOADING SPINNER (no npm packages)
 ══════════════════════════════════════════════════════════════ */
 .spinner {
@@ -1013,6 +1014,8 @@ body::after {
 }
 
 /* ══════════════════════════════════════════════════════════════
+=======
+>>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
    SCROLLBAR
 ══════════════════════════════════════════════════════════════ */
 ::-webkit-scrollbar { width: 5px; }
@@ -1566,6 +1569,7 @@ body::after {
   margin-bottom: 20px;
   box-shadow: var(--shadow-card);
   color: var(--text-muted);
+<<<<<<< HEAD
   /* S8 — smooth transition for focus ring */
   transition: border-color 0.18s ease, box-shadow 0.18s ease;
 }
@@ -1575,6 +1579,8 @@ body::after {
   border-color: rgba(58, 141, 255, 0.45);
   box-shadow: var(--shadow-card), 0 0 0 3px rgba(58, 141, 255, 0.10);
   color: var(--text-secondary);
+=======
+>>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
 }
 
 .page-search-input {
@@ -1594,15 +1600,22 @@ body::after {
   border: 1px solid var(--border-soft);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-card);
+<<<<<<< HEAD
   overflow-x: auto;
   overflow-y: hidden;
+=======
+  overflow: hidden;
+>>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
   margin-bottom: 24px;
   animation: card-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .page-table {
   width: 100%;
+<<<<<<< HEAD
   min-width: 700px;
+=======
+>>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
   border-collapse: collapse;
   font-size: 13px;
 }
@@ -1679,6 +1692,7 @@ body::after {
   letter-spacing: 0.10em;
 }
 
+<<<<<<< HEAD
 /* S9 — improved empty state: more breathing room + muted icon glyph */
 .page-table-empty {
   text-align: center;
@@ -1702,6 +1716,13 @@ body::after {
   background-repeat: no-repeat;
   background-position: center;
   background-size: 18px 18px;
+=======
+.page-table-empty {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 32px 20px !important;
+  font-size: 13px;
+>>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
 }
 
 /* ── Placeholder (stub pages) ──────────────────────────────── */
@@ -2122,6 +2143,7 @@ body,
   .page-summary-chip { padding: 8px 10px; }
   .page-summary-val { font-size: 18px; }
 }
+<<<<<<< HEAD
 
 /* ═══════════════════════════════════════════════════════════════
    Sprint 4 — Skeleton loaders
@@ -2223,3 +2245,5 @@ body,
   background: rgba(231,76,60,0.10);
 }
 
+=======
+>>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04

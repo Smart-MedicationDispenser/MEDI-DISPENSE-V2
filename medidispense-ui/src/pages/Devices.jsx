@@ -1,8 +1,12 @@
 import { useState, useEffect } from "react";
+<<<<<<< HEAD
 import { apiClient } from "../services/apiClient";
 import SortableHeader from "../components/SortableHeader";
 import FilterPills from "../components/FilterPills";
 import { useTableControls } from "../hooks/useTableControls";
+=======
+
+>>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
 /* ─── Status colour map ────────────────────────────────────────── */
 const STATUS_MAP = {
   "Online":       { color: "var(--green)",  bg: "rgba(39,174,96,0.08)",   border: "rgba(39,174,96,0.20)"   },
@@ -12,6 +16,7 @@ const STATUS_MAP = {
 };
 
 /* ─── Shared modal backdrop + panel ───────────────────────────── */
+<<<<<<< HEAD
 /* S6 — Escape key support added to local Modal */
 function Modal({ onClose, children, maxWidth = 460 }) {
   /* S6 — Escape key support */
@@ -21,6 +26,9 @@ function Modal({ onClose, children, maxWidth = 460 }) {
     return () => document.removeEventListener("keydown", handleKey);
   }, [onClose]);
 
+=======
+function Modal({ onClose, children, maxWidth = 460 }) {
+>>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
   return (
     <div
       onClick={onClose}
@@ -170,7 +178,11 @@ function StatusDot({ status }) {
 }
 
 /* ─── Action button ────────────────────────────────────────────── */
+<<<<<<< HEAD
 function ActionBtn({ label, variant, onClick, disabled, ...props }) {
+=======
+function ActionBtn({ label, variant, onClick, disabled }) {
+>>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
   const styles = {
     view:    { color: "var(--cyan)",   bg: "rgba(58,141,255,0.08)", border: "rgba(58,141,255,0.20)" },
     restart: { color: "var(--teal)",   bg: "rgba(74,163,162,0.08)", border: "rgba(74,163,162,0.20)" },
@@ -187,7 +199,10 @@ function ActionBtn({ label, variant, onClick, disabled, ...props }) {
         opacity: disabled ? 0.45 : 1, cursor: disabled ? "not-allowed" : "pointer",
       }}
       onClick={onClick}
+<<<<<<< HEAD
       {...props}
+=======
+>>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
     >
       {label}
     </button>
@@ -419,10 +434,15 @@ function ConfirmDeleteModal({ device, onConfirm, onClose }) {
 ═══════════════════════════════════════════════════════════════════ */
 export default function Devices() {
   const [devices,            setDevices]           = useState([]);
+<<<<<<< HEAD
+=======
+  const [search,             setSearch]            = useState("");
+>>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
   const [showRegisterModal,  setShowRegisterModal] = useState(false);
   const [selectedDevice,     setSelectedDevice]    = useState(null);
   const [healthDevice,       setHealthDevice]      = useState(null);
   const [pendingDelete,      setPendingDelete]     = useState(null);
+<<<<<<< HEAD
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -442,12 +462,15 @@ export default function Devices() {
 
     fetchDevices();
   }, []);
+=======
+>>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
 
   /* Derived counts */
   const total   = devices.length;
   const online  = devices.filter(d => d.status === "Online").length;
   const offline = devices.filter(d => d.status === "Offline").length;
   const battLow = devices.filter(d => d.status === "Battery Low").length;
+<<<<<<< HEAD
   const restarting = devices.filter(d => d.status === "Restarting").length;
 
   const {
@@ -492,6 +515,24 @@ export default function Devices() {
     } catch (err) {
       console.error(err);
     }
+=======
+
+  /* Search filter */
+  const filtered = devices.filter(d =>
+    d.id.toLowerCase().includes(search.toLowerCase())     ||
+    d.ward.toLowerCase().includes(search.toLowerCase())   ||
+    d.room.toLowerCase().includes(search.toLowerCase())   ||
+    d.status.toLowerCase().includes(search.toLowerCase())
+  );
+
+  /* Register new device */
+  const handleRegister = (device) => setDevices(prev => [...prev, device]);
+
+  /* Delete confirmed */
+  const handleDelete = (id) => {
+    setDevices(prev => prev.filter(d => d.id !== id));
+    setPendingDelete(null);
+>>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
   };
 
   /* Restart: set Restarting, then back to Online after 2 s */
@@ -634,6 +675,7 @@ export default function Devices() {
           </div>
         </div>
 
+<<<<<<< HEAD
         {/* ── Filters & Search ──────────────────────────────────── */}
         <div style={{ marginBottom: 16 }}>
           <FilterPills
@@ -644,6 +686,9 @@ export default function Devices() {
           />
         </div>
 
+=======
+        {/* ── Search ──────────────────────────────────────────────── */}
+>>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
         <div className="page-search-bar">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" width="16" height="16">
             <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
@@ -665,6 +710,7 @@ export default function Devices() {
           <table className="page-table">
             <thead>
               <tr>
+<<<<<<< HEAD
                 <SortableHeader field="id" label="Device ID" sort={sort} onSort={toggleSort} />
                 <SortableHeader field="ward" label="Ward" sort={sort} onSort={toggleSort} />
                 <SortableHeader field="room" label="Room" sort={sort} onSort={toggleSort} />
@@ -672,11 +718,21 @@ export default function Devices() {
                 <SortableHeader field="battery" label="Battery" sort={sort} onSort={toggleSort} />
                 <SortableHeader field="lastHeartbeat" label="Last Heartbeat" sort={sort} onSort={toggleSort} />
                 <SortableHeader field="slotsUsed" label="Slots Used" sort={sort} onSort={toggleSort} />
+=======
+                <th>Device ID</th>
+                <th>Ward</th>
+                <th>Room</th>
+                <th>Status</th>
+                <th>Battery</th>
+                <th>Last Heartbeat</th>
+                <th>Slots Used</th>
+>>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
 
+<<<<<<< HEAD
               {/* Loading state */}
               {loading && (
                 <tr>
@@ -688,6 +744,10 @@ export default function Devices() {
 
               {/* Empty state — no devices registered yet */}
               {!loading && devices.length === 0 && (
+=======
+              {/* Empty state — no devices registered yet */}
+              {devices.length === 0 && (
+>>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
                 <tr>
                   <td colSpan="8" className="page-table-empty">
                     No devices registered yet. Click <strong>+ Register Device</strong> to add one.
@@ -696,7 +756,11 @@ export default function Devices() {
               )}
 
               {/* No search results */}
+<<<<<<< HEAD
               {!loading && devices.length > 0 && filtered.length === 0 && (
+=======
+              {devices.length > 0 && filtered.length === 0 && (
+>>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
                 <tr>
                   <td colSpan="8" className="page-table-empty">
                     No devices match your search.
@@ -704,7 +768,11 @@ export default function Devices() {
                 </tr>
               )}
 
+<<<<<<< HEAD
               {!loading && filtered.map(d => {
+=======
+              {filtered.map(d => {
+>>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
                 const s = STATUS_MAP[d.status] || STATUS_MAP["Online"];
                 const isRestarting = d.status === "Restarting";
                 return (
@@ -737,28 +805,40 @@ export default function Devices() {
                           variant="view"
                           disabled={isRestarting}
                           onClick={() => setSelectedDevice(d)}
+<<<<<<< HEAD
                           aria-label={`View device ${d.id}`}
+=======
+>>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
                         />
                         <ActionBtn
                           label="Restart"
                           variant="restart"
                           disabled={isRestarting}
                           onClick={() => handleRestart(d.id)}
+<<<<<<< HEAD
                           aria-label={`Restart device ${d.id}`}
+=======
+>>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
                         />
                         <ActionBtn
                           label="Health Check"
                           variant="health"
                           disabled={isRestarting}
                           onClick={() => setHealthDevice(d)}
+<<<<<<< HEAD
                           aria-label={`Health check device ${d.id}`}
+=======
+>>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
                         />
                         <ActionBtn
                           label="Delete"
                           variant="delete"
                           disabled={isRestarting}
                           onClick={() => setPendingDelete(d)}
+<<<<<<< HEAD
                           aria-label={`Delete device ${d.id}`}
+=======
+>>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
                         />
                       </div>
                     </td>
@@ -770,13 +850,21 @@ export default function Devices() {
           </table>
         </div>
 
+<<<<<<< HEAD
         {/* ── Footer — S7: year updated to 2026 ─────────────────────────── */}
+=======
+        {/* ── Footer ──────────────────────────────────────────────── */}
+>>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
         <footer className="dash-footer">
           <span>MEDI-DISPENSE v1.1</span>
           <span className="footer-sep">·</span>
           <span>AI-Powered Medication Monitoring</span>
           <span className="footer-sep">·</span>
+<<<<<<< HEAD
           <span>© 2026</span>
+=======
+          <span>© 2025</span>
+>>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
         </footer>
 
       </main>

@@ -1,6 +1,9 @@
 const express = require('express');
 const router  = express.Router();
+<<<<<<< HEAD
 const { validateRequest } = require('../middleware/validateRequest');
+=======
+>>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
 const {
   getMedications,
   getMedicationById,
@@ -16,10 +19,17 @@ router.get('/', getMedications);
 router.get('/:id', getMedicationById);
 
 // ADD medication
+<<<<<<< HEAD
 router.post('/', validateRequest('medication'), addMedication);
 
 // UPDATE medication
 router.put('/:id', validateRequest('medication'), updateMedication);
+=======
+router.post('/', addMedication);
+
+// UPDATE medication
+router.put('/:id', updateMedication);
+>>>>>>> f4adaf91c4ae0e05c8bcadf8997879a0e5b5cb04
 
 // DELETE medication
 router.delete('/:id', deleteMedication);
